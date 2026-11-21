@@ -63,15 +63,34 @@ public class MainActivity extends Activity {
 
         setContentView(webView);
 
-        webView.loadData(
-            "<html><body style='font-family:sans-serif;text-align:center;padding:40px'>" +
+        String html =
+            "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>" +
+            "<style>body{font-family:sans-serif;text-align:center;padding:24px;background:#f7f7fb;color:#222}" +
+            "select{width:100%;max-width:300px;padding:11px;border:1px solid #aaa;border-radius:8px;font-size:15px;background:white}" +
+            "input{margin-top:28px;font-size:16px}</style></head><body>" +
             "<h2>🎬 Lucky Ai Recap</h2>" +
-            "<p>Video Picker အသင့်ဖြစ်နေပါပြီ။</p>" +
-            "<input type=\"file\" accept=\"video/*\" style=\"font-size:18px\">" +
-            "<p>ဖုန်းထဲမှ Video ရွေးချယ်စမ်းသပ်ပါ။</p>" +
-            "</body></html>",
+            "<p style='font-size:13px;color:#666'>Processing Server</p>" +
+            "<select id='server' onchange='saveServer()'>" +
+            "<option value='local'>Server 1 — Local AI</option>" +
+            "<option value='assemblyai'>Server 2 — AssemblyAI</option>" +
+            "</select>" +
+            "<p id='selected' style='font-size:12px;color:#666'>Server 1 ကို ရွေးထားသည်</p>" +
+            "<p>Video ရွေးချယ်ပါ</p>" +
+            "<input type='file' accept='video/*'>" +
+            "<script>" +
+            "const sel=document.getElementById('server');" +
+            "try{sel.value=localStorage.getItem('lucky_server')||'local';}catch(e){}" +
+            "function updateLabel(){document.getElementById('selected').textContent=sel.value==='local'?'Server 1 ကို ရွေးထားသည်':'Server 2 ကို ရွေးထားသည်';}" +
+            "function saveServer(){try{localStorage.setItem('lucky_server',sel.value);}catch(e){}updateLabel();}" +
+            "updateLabel();" +
+            "</script></body></html>";
+
+        webView.loadDataWithBaseURL(
+            "https://lucky-ai.local/",
+            html,
             "text/html",
-            "UTF-8"
+            "UTF-8",
+            null
         );
     }
 
