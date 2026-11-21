@@ -67,7 +67,8 @@ public class MainActivity extends Activity {
             "<html><body style='font-family:sans-serif;text-align:center;padding:40px'>" +
             "<h2>🎬 Lucky Ai Recap</h2>" +
             "<p>Video Picker အသင့်ဖြစ်နေပါပြီ။</p>" +
-            "<p>Website ချိတ်ဆက်ပြီးနောက် Video Upload လုပ်နိုင်ပါမည်။</p>" +
+            "<input type=\"file\" accept=\"video/*\" style=\"font-size:18px\">" +
+            "<p>ဖုန်းထဲမှ Video ရွေးချယ်စမ်းသပ်ပါ။</p>" +
             "</body></html>",
             "text/html",
             "UTF-8"
