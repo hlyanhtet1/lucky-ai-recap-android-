@@ -1,14 +1,21 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+dependencies {
+    implementation project(":llama")
+    implementation "androidx.core:core-ktx:1.17.0"
+    implementation "androidx.datastore:datastore-preferences:1.2.0"
 }
 
 android {
     namespace 'com.luckyai.recap'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId 'com.luckyai.recap'
-        minSdk 24
+        minSdk 26
         targetSdk 35
         versionCode 1
         versionName '1.0'
