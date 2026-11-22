@@ -322,10 +322,22 @@ nav b {display:block;font-size:20px;margin-bottom:4px}
 
 <script>
 window.onerror = function(message, source, line, column) {
+  var box = document.getElementById('debugError');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'debugError';
+    box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#b00020;color:white;padding:12px;font-size:14px;white-space:pre-wrap';
+    document.body.appendChild(box);
+  }
+  box.textContent = 'JAVASCRIPT ERROR: ' + message + ' | line: ' + line;
   try { LocalAI.logToolClick('JS ERROR: ' + message + ' line ' + line); } catch(e) {}
   return false;
 };
 window.addEventListener('DOMContentLoaded', function() {
+  var box = document.createElement('div');
+  box.textContent = 'JAVASCRIPT RUNNING';
+  box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99998;background:#087f23;color:white;padding:10px;text-align:center;font-weight:bold';
+  document.body.appendChild(box);
   try { LocalAI.logToolClick('DOM READY'); } catch(e) {}
 });
 const toolData = {
