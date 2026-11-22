@@ -350,6 +350,7 @@ function go(id) {
  window.scrollTo(0,0);
 }
 function openTool(id) {
+ alert('openTool clicked: '+id);
  currentTool=id;
  const t=toolData[id];
  document.getElementById('toolIcon').textContent=t.icon;
