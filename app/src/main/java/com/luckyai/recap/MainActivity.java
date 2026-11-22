@@ -311,6 +311,13 @@ nav b {display:block;font-size:20px;margin-bottom:4px}
 <input id="videoFile" type="file" accept="video/*" style="display:none" onchange="chooseVideo(this)">
 
 <script>
+window.onerror = function(message, source, line, column) {
+  try { LocalAI.logToolClick('JS ERROR: ' + message + ' line ' + line); } catch(e) {}
+  return false;
+};
+window.addEventListener('DOMContentLoaded', function() {
+  try { LocalAI.logToolClick('DOM READY'); } catch(e) {}
+});
 const toolData = {
  recap:{
   icon:'🎬',title:'Recap',
