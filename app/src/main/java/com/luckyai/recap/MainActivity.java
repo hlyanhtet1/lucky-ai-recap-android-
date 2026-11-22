@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
         });
 
         setContentView(webView);
+        webView.addJavascriptInterface(new LocalAiBridge(this), "LocalAI");
 
         String html =
             "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>" +
@@ -75,10 +76,13 @@ public class MainActivity extends Activity {
             "<option value='assemblyai'>Server 2 — AssemblyAI</option>" +
             "</select>" +
             "<p id='selected' style='font-size:12px;color:#666'>Server 1 ကို ရွေးထားသည်</p>" +
+            "<p id='engineStatus' style='font-size:13px;color:#1565c0'>Local AI Engine စစ်ဆေးနေသည်...</p>" +
             "<p>Video ရွေးချယ်ပါ</p>" +
             "<input type='file' accept='video/*'>" +
             "<script>" +
             "const sel=document.getElementById('server');" +
+            "function updateEngineStatus(){try{const s=LocalAI.getState();document.getElementById('engineStatus').textContent='Local AI Engine: '+s;}catch(e){document.getElementById('engineStatus').textContent='Engine Error: '+e.message;}}" +
+            "setInterval(updateEngineStatus,1000);updateEngineStatus();" +
             "try{sel.value=localStorage.getItem('lucky_server')||'local';}catch(e){}" +
             "function updateLabel(){document.getElementById('selected').textContent=sel.value==='local'?'Server 1 ကို ရွေးထားသည်':'Server 2 ကို ရွေးထားသည်';}" +
             "function saveServer(){try{localStorage.setItem('lucky_server',sel.value);}catch(e){}updateLabel();}" +
