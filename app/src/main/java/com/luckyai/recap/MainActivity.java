@@ -332,22 +332,22 @@ const toolData = {
  cartoon:{
   icon:'🍎',title:'AI Cartoon Creator',
   desc:'အသီးပုံစံ Cartoon Character များနှင့် ကိုယ်ပိုင် Video ဖန်တီးရန်။',
-  controls:'<label class="label">Character Style</label><select class="field"><option>Fruit Cartoon</option><option>3D Cartoon</option><option>2D Cartoon</option></select><label class="label">Video Idea</label><textarea class="field" rows="4" placeholder="ဖန်တီးလိုသော Cartoon ဇာတ်လမ်းကို ရေးပါ"></textarea><button class="btn orange" onclick="alert('Cartoon Generation Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။')">Create Cartoon Video</button>'
+  controls:'<label class="label">Character Style</label><select class="field"><option>Fruit Cartoon</option><option>3D Cartoon</option><option>2D Cartoon</option></select><label class="label">Video Idea</label><textarea class="field" rows="4" placeholder="ဖန်တီးလိုသော Cartoon ဇာတ်လမ်းကို ရေးပါ"></textarea><button class="btn orange" onclick="alert(&quot;Cartoon Generation Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။&quot;)">Create Cartoon Video</button>'
  },
  tts:{
   icon:'🎙️',title:'Text To Speech (TTS)',
   desc:'စာသားကို AI အသံအဖြစ် ပြောင်းလဲရန်။',
-  controls:'<label class="label">Text ထည့်ရန်</label><textarea class="field" rows="5" placeholder="အသံပြောင်းလိုသော စာသားကို ရေးပါ"></textarea><label class="label">Voice Language</label><select class="field"><option>မြန်မာ</option><option>English</option></select><button class="btn orange" onclick="alert('TTS Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။')">Generate Voice</button>'
+  controls:'<label class="label">Text ထည့်ရန်</label><textarea class="field" rows="5" placeholder="အသံပြောင်းလိုသော စာသားကို ရေးပါ"></textarea><label class="label">Voice Language</label><select class="field"><option>မြန်မာ</option><option>English</option></select><button class="btn orange" onclick="alert(&quot;TTS Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။&quot;)">Generate Voice</button>'
  },
  subtitle:{
   icon:'💬',title:'Subtitle Extraction',
   desc:'Video ထဲမှ စကားပြောစာသားနှင့် Subtitle ထုတ်ယူရန်။',
-  controls:'<label class="label">Video ရွေးချယ်ရန်</label><button class="btn" onclick="pickVideo()">＋ Choose Video</button><div id="selectedVideo" class="status">Video မရွေးရသေးပါ</div><button class="btn orange" onclick="alert('Subtitle Extraction Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။')">Extract Subtitles</button>'
+  controls:'<label class="label">Video ရွေးချယ်ရန်</label><button class="btn" onclick="pickVideo()">＋ Choose Video</button><div id="selectedVideo" class="status">Video မရွေးရသေးပါ</div><button class="btn orange" onclick="alert(&quot;Subtitle Extraction Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။&quot;)">Extract Subtitles</button>'
  },
  download:{
   icon:'⬇️',title:'Video Download',
   desc:'ခွင့်ပြုထားသော Video URL များမှ Download ပြုလုပ်ရန်။',
-  controls:'<label class="label">Video URL</label><input class="field" type="url" placeholder="https://..."><button class="btn orange" onclick="alert('Video Download Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။')">Download Video</button>'
+  controls:'<label class="label">Video URL</label><input class="field" type="url" placeholder="https://..."><button class="btn orange" onclick="alert(&quot;Video Download Engine ကို နောက်အဆင့်မှာ ချိတ်ဆက်ပါမယ်။&quot;)">Download Video</button>'
  }
 };
 let currentTool='recap';
