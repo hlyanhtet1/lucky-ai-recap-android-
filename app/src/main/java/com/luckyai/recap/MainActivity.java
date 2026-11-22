@@ -160,6 +160,8 @@ nav b {display:block;font-size:20px;margin-bottom:4px}
 </style>
 </head>
 <body>
+<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff9800;color:#000;padding:12px;text-align:center;font-weight:bold">HTML TEST - NEW APK</div>
+<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff9800;color:#000;padding:12px;text-align:center;font-weight:bold">HTML TEST - NEW APK</div>
 <header>
  <div class="brand">LUCKY <span>AI</span> RECAP</div>
  <div class="subtitle">AI VIDEO TOOLS & CREATION STUDIO</div>
