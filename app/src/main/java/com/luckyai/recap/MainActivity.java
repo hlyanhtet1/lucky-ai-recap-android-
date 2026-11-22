@@ -338,7 +338,7 @@ window.onerror = function(message, source, line, column) {
 window.addEventListener('DOMContentLoaded', function() {
   var box = document.createElement('div');
   box.textContent = 'JAVASCRIPT RUNNING';
-  box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99998;background:#087f23;color:white;padding:10px;text-align:center;font-weight:bold';
+  box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:100000;background:#087f23;color:white;padding:10px;text-align:center;font-weight:bold';
   document.body.appendChild(box);
   try { LocalAI.logToolClick('DOM READY'); } catch(e) {}
 });
