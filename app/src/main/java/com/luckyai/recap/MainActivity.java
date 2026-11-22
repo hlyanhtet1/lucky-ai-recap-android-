@@ -353,6 +353,7 @@ function go(id) {
  window.scrollTo(0,0);
 }
 function openTool(id) {
+ try { LocalAI.logToolClick(id); } catch(e) { console.log('Bridge error: '+e.message); }
  alert('openTool clicked: '+id);
  currentTool=id;
  const t=toolData[id];
