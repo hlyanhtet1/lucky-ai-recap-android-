@@ -434,7 +434,7 @@ function showProjects(filter) {
  list.innerHTML=filtered.map(p=>{
   const safe=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const id=Number(p.id)||0;
-  return '<div class="step"><div><b>'+safe(p.name||'Video')+'</b><p>'+safe(p.createdAt)+' · '+safe(p.status)+'</p><p>'+safe(p.type)+'</p><button class="btn" onclick="reopenProject('+id+')">ပြန်ဖွင့်</button> <button class="btn" onclick="changeProjectStatus('+id+',\'Completed\')">Completed</button> <button class="btn" onclick="changeProjectStatus('+id+',\'Failed\')">Failed</button> <button class="btn" onclick="deleteProject('+id+')">ဖျက်ရန်</button></div></div>';
+  return '<div class="step"><div><b>'+safe(p.name||'Video')+'</b><p>'+safe(p.createdAt)+' · '+safe(p.status)+'</p><p>'+safe(p.type)+'</p><button class="btn" onclick="reopenProject('+id+')">ပြန်ဖွင့်</button> <button class="btn" onclick="changeProjectStatus('+id+',\\'Completed\\')">Completed</button> <button class="btn" onclick="changeProjectStatus('+id+',\\'Failed\\')">Failed</button> <button class="btn" onclick="deleteProject('+id+')">ဖျက်ရန်</button></div></div>';
  }).join('');
 }
 
