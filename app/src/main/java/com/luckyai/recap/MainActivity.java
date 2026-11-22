@@ -335,6 +335,7 @@ window.onerror = function(message, source, line, column) {
   try { LocalAI.logToolClick('JS ERROR: ' + message + ' line ' + line); } catch(e) {}
   return false;
 };
+document.body.insertAdjacentHTML('afterbegin','<div style=position:fixed;top:50px;left:0;z-index:100001;background:blue;color:white;padding:10px>JS_EXECUTION_TEST</div>');
 window.addEventListener('DOMContentLoaded', function() {
   var box = document.createElement('div');
   box.textContent = 'JAVASCRIPT RUNNING';
