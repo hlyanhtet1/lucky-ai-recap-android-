@@ -1,5 +1,7 @@
 package com.luckyai.recap;
 import android.app.Activity;
+import android.util.Log;
+import android.webkit.ConsoleMessage;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +33,12 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(new LocalAiBridge(this), "LocalAI");
 
         webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage message) {
+                Log.e("LuckyAI-JS", message.message() + " at line " + message.lineNumber());
+                return true;
+            }
+
             @Override
             public boolean onShowFileChooser(
                 WebView view,
