@@ -417,9 +417,41 @@ function showProjects(filter) {
   return;
  }
  list.innerHTML=filtered.map(p=>{
-  const safeName=String(p.name||'Video').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  return '<div class="step"><div><b>'+safeName+'</b><p>'+p.createdAt+' · '+p.status+'</p></div><span class="status">'+p.type+'</span></div>';
+  const safe=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const id=Number(p.id)||0;
+  return '<div class="step"><div><b>'+safe(p.name||'Video')+'</b><p>'+safe(p.createdAt)+' · '+safe(p.status)+'</p><p>'+safe(p.type)+'</p><button class="btn" onclick="reopenProject('+id+')">ပြန်ဖွင့်</button> <button class="btn" onclick="changeProjectStatus('+id+',\'Completed\')">Completed</button> <button class="btn" onclick="changeProjectStatus('+id+',\'Failed\')">Failed</button> <button class="btn" onclick="deleteProject('+id+')">ဖျက်ရန်</button></div></div>';
  }).join('');
+}
+
+function changeProjectStatus(id,status) {
+ const projects=loadProjects();
+ const project=projects.find(p=>Number(p.id)===Number(id));
+ if(!project) return;
+ project.status=status;
+ saveProjects(projects);
+ showProjects(currentProjectFilter);
+}
+
+function deleteProject(id) {
+ if(!confirm('ဒီ Project ကို ဖျက်မှာ သေချာပါသလား။')) return;
+ const projects=loadProjects().filter(p=>Number(p.id)!==Number(id));
+ saveProjects(projects);
+ showProjects(currentProjectFilter);
+}
+
+function reopenProject(id) {
+ const project=loadProjects().find(p=>Number(p.id)===Number(id));
+ if(!project) return;
+ selectedVideoName=project.name;
+ currentTool=project.tool||Object.keys(toolData).find(k=>toolData[k].title===project.type)||'recap';
+ const t=toolData[currentTool];
+ document.getElementById('toolIcon').textContent=t.icon;
+ document.getElementById('toolTitle').textContent=t.title;
+ document.getElementById('toolDescription').textContent=t.desc;
+ document.getElementById('toolControls').innerHTML=t.controls;
+ const target=document.getElementById('selectedVideo');
+ if(target) target.textContent='Selected: '+selectedVideoName;
+ go('tool');
 }
 
 function startProject() {
@@ -433,6 +465,7 @@ function startProject() {
   id:Date.now(),
   name:selectedVideoName,
   type:t?t.title:currentTool,
+  tool:currentTool,
   status:'Processing',
   createdAt:new Date().toLocaleString()
  });
