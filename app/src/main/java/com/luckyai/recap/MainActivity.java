@@ -17,6 +17,7 @@ import android.graphics.Color;
 
 public class MainActivity extends Activity {
     private WebView webView;
+    private LocalAiBridge localAiBridge;
     private ValueCallback<Uri[]> fileCallback;
     private static final int FILE_REQUEST = 1001;
 
@@ -33,7 +34,8 @@ public class MainActivity extends Activity {
         settings.setDomStorageEnabled(true);
 
         webView.setWebViewClient(new WebViewClient());
-        webView.addJavascriptInterface(new LocalAiBridge(this), "LocalAI");
+        localAiBridge = new LocalAiBridge(this, webView);
+        webView.addJavascriptInterface(localAiBridge, "LocalAI");
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -287,6 +289,12 @@ nav b {display:block;font-size:20px;margin-bottom:4px}
   <div id="serverInfo" class="status">Local AI ကို ရွေးထားသည်။</div>
  </div>
  <div class="card">
+  <h3>🧠 Local AI Model</h3>
+  <p class="small">သင့်ဖုန်းထဲရှိ GGUF Model ဖိုင်ကို ရွေးချယ်ပါ။</p>
+  <button class="btn orange" onclick="if(window.LocalAI) LocalAI.pickModel(); else alert('Local AI Bridge မချိတ်ဆက်ရသေးပါ');">＋ Choose Local Model</button>
+  <div id="modelStatus" class="status">Model မရွေးချယ်ရသေးပါ။</div>
+ </div>
+ <div class="card">
   <h3>🔑 API Configuration</h3>
   <label class="label">AssemblyAI API Key</label>
   <input id="assemblyKey" class="field" type="password" placeholder="AssemblyAI API Key ထည့်ပါ">
@@ -537,6 +545,14 @@ updateEngineStatus();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LocalAiBridge.MODEL_REQUEST) {
+            if (localAiBridge != null) {
+                localAiBridge.handleModelResult(
+                    resultCode == RESULT_OK && data != null ? data.getData() : null
+                );
+            }
+            return;
+        }
         if (requestCode == FILE_REQUEST && fileCallback != null) {
             Uri[] results = null;
             if (resultCode == RESULT_OK && data != null && data.getData() != null) {
@@ -545,6 +561,14 @@ updateEngineStatus();
             fileCallback.onReceiveValue(results);
             fileCallback = null;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (localAiBridge != null) {
+            localAiBridge.close();
+        }
+        super.onDestroy();
     }
 
     @Override
