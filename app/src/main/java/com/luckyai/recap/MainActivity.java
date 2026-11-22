@@ -230,6 +230,16 @@ nav b {display:block;font-size:20px;margin-bottom:4px}
  <h2>📁 Projects</h2>
  <p>သင့် Recap လုပ်ငန်း Project များနှင့် လုပ်ငန်းစဉ်များကို ဒီနေရာမှာ စီမံပါမယ်။</p>
  <div class="card">
+  <h3>📂 Project Management</h3>
+  <div class="project-tabs">
+   <button class="btn" onclick="showProjects('Recent')">Recent</button>
+   <button class="btn" onclick="showProjects('Processing')">Processing</button>
+   <button class="btn" onclick="showProjects('Completed')">Completed</button>
+   <button class="btn" onclick="showProjects('Failed')">Failed</button>
+  </div>
+  <div id="projectList" class="preview">Project များ မရှိသေးပါ။</div>
+ </div>
+ <div class="card">
   <h3>🎬 Recap Project Workflow</h3>
   <div class="step"><span class="number">1</span><div><b>Video Analysis</b><p>ရွေးထားသော Video ကို စစ်ဆေးခြင်း</p></div></div>
   <div class="step"><span class="number">2</span><div><b>Audio Transcription</b><p>အသံမှ Transcript နှင့် Timestamp ထုတ်ခြင်း</p></div></div>
@@ -380,12 +390,55 @@ function chooseVideo(input) {
   if(target) target.textContent='Selected: '+selectedVideoName;
  }
 }
+let currentProjectFilter='Recent';
+
+function loadProjects() {
+ try {
+  return JSON.parse(localStorage.getItem('lucky_projects')||'[]');
+ } catch(e) {
+  return [];
+ }
+}
+
+function saveProjects(projects) {
+ localStorage.setItem('lucky_projects',JSON.stringify(projects));
+}
+
+function showProjects(filter) {
+ currentProjectFilter=filter||'Recent';
+ const list=document.getElementById('projectList');
+ if(!list) return;
+ const projects=loadProjects();
+ const filtered=currentProjectFilter==='Recent'
+  ?projects
+  :projects.filter(p=>p.status===currentProjectFilter);
+ if(!filtered.length) {
+  list.textContent=currentProjectFilter+' Project မရှိသေးပါ။';
+  return;
+ }
+ list.innerHTML=filtered.map(p=>{
+  const safeName=String(p.name||'Video').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return '<div class="step"><div><b>'+safeName+'</b><p>'+p.createdAt+' · '+p.status+'</p></div><span class="status">'+p.type+'</span></div>';
+ }).join('');
+}
+
 function startProject() {
  if(!selectedVideoName) {
   alert('အရင်ဆုံး Video ရွေးချယ်ပါ။');
   return;
  }
+ const projects=loadProjects();
+ const t=toolData[currentTool];
+ projects.unshift({
+  id:Date.now(),
+  name:selectedVideoName,
+  type:t?t.title:currentTool,
+  status:'Processing',
+  createdAt:new Date().toLocaleString()
+ });
+ saveProjects(projects);
  go('project');
+ showProjects('Recent');
 }
 function updateEngineStatus() {
  try {
