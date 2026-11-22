@@ -1,6 +1,8 @@
 package com.luckyai.recap;
 import android.app.Activity;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.os.Bundle;
 import android.content.Intent;
@@ -24,6 +26,7 @@ public class MainActivity extends Activity {
 
         webView = new WebView(this);
         webView.setBackgroundColor(Color.rgb(7, 27, 53));
+        webView.setOnTouchListener((v, event) -> { if (event.getAction() == MotionEvent.ACTION_DOWN) Log.e("LuckyAI-TOUCH", "WebView touched"); return false; });
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
